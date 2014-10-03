@@ -1,6 +1,7 @@
 package com.epam.training.classloader;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +12,16 @@ import java.util.jar.JarFile;
  * Created by Vasyl_Melnychuk on 10/1/2014.
  */
 public class MyClassLoader extends ClassLoader {
-    private static final String JAR_DIR = "d:/jars/Dog.jar";
+    private static final String DEFAULT_JAR_DIR = "d:/jars/";
+    private static final String DEFAULT_JAR_FILE = "Dog.jar";
+    private String jarFileName;
+    private static String jarDir;
     private Map<String, Class<?>> classCache = new HashMap<String, Class<?>>();
 
     public MyClassLoader() {
         super(MyClassLoader.class.getClassLoader());
+        this.jarDir = DEFAULT_JAR_DIR;
+        this.jarFileName = DEFAULT_JAR_FILE;
     }
 
     public MyClassLoader(ClassLoader parent) {
@@ -27,43 +33,67 @@ public class MyClassLoader extends ClassLoader {
         return findClass(className);
     }
 
-    @Override
-    protected Class<?> findClass(String className) throws ClassNotFoundException {
-        byte classByte[];
-        Class result = null;
+    public static String getJarDir() {
+        return jarDir;
+    }
 
-        result = (Class) classCache.get(className); // check cache
-        if (result != null) {
-            return result;
-        }
+    public static void setJarDir(String jarDir) {
+        MyClassLoader.jarDir = jarDir;
+    }
 
-        try {
-            return findSystemClass(className);
-        } catch (Exception e) {
-        }
+    public String getJarFileName() {
+        return jarFileName;
+    }
 
-        try {
-            JarFile jar = new JarFile(JAR_DIR);
-            JarEntry entry  = jar.getJarEntry(className + ".class");
-            InputStream is = jar.getInputStream(entry);
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            int nextValue = is.read();
-            while (-1 != nextValue) {
-                byteStream.write(nextValue);
-                nextValue = is.read();
-            }
-            classByte = byteStream.toByteArray();
-            result = defineClass(className, classByte, 0, classByte.length, null);
-            classCache.put(className, result);
-            return result;
-        } catch (Exception e) {
-            return null;
-        }
+    public void setJarFileName(String jarFileName) {
+        this.jarFileName = jarFileName;
     }
 
     @Override
     public String toString() {
         return MyClassLoader.class.getName();
+    }
+
+    @Override
+    protected Class<?> findClass(String className) throws ClassNotFoundException {
+        //check the class cache
+        if(classCache.containsKey(className)) {
+            //log class found in cache
+            return classCache.get(className);
+        }
+
+        //check for system class
+        try {
+            return findSystemClass(className);
+        } catch (ClassNotFoundException e) {
+            //log the not system class
+        }
+
+        //load class form jar
+        byte classData[];
+        Class result = null;
+        try {
+            classData = loadClassData(className);
+        } catch (IOException e) {
+            throw new ClassNotFoundException( "Class [" + className + "] ", e );
+        }
+        result = defineClass(className, classData, 0, classData.length, null);
+        return result;
+    }
+
+    private byte[] loadClassData(String className) throws IOException {
+        byte[] classData;
+        JarFile jar = new JarFile(jarDir + jarFileName);
+        JarEntry entry  = jar.getJarEntry(className + ".class");
+        InputStream is = jar.getInputStream(entry);
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        int nextValue = is.read();
+        while (-1 != nextValue) {
+            byteStream.write(nextValue);
+            nextValue = is.read();
+        }
+        classData = byteStream.toByteArray();
+        return classData;
     }
 
 
