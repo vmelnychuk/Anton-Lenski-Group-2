@@ -1,5 +1,7 @@
 package com.epam.training.classloader;
 
+import org.apache.log4j.Logger;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,7 @@ import java.util.jar.JarFile;
  * Created by Vasyl_Melnychuk on 10/1/2014.
  */
 public class MyClassLoader extends ClassLoader {
+    static final Logger logger = Logger.getLogger(MyClassLoader.class);
     private static final String DEFAULT_JAR_DIR = "d:/jars/";
     private static final String DEFAULT_JAR_FILE = "Dog.jar";
     private String jarFileName;
@@ -59,6 +62,7 @@ public class MyClassLoader extends ClassLoader {
         //check the class cache
         if(classCache.containsKey(className)) {
             //log class found in cache
+            logger.info("% Class " + className + " found in cache");
             return classCache.get(className);
         }
 
@@ -67,6 +71,7 @@ public class MyClassLoader extends ClassLoader {
             return findSystemClass(className);
         } catch (ClassNotFoundException e) {
             //log the not system class
+            logger.info("% Class " + className + " is not system class");
         }
 
         //load class form jar
@@ -75,9 +80,12 @@ public class MyClassLoader extends ClassLoader {
         try {
             classData = loadClassData(className);
         } catch (IOException e) {
+            logger.error("% Class " + className + " not found");
             throw new ClassNotFoundException( "Class [" + className + "] ", e );
         }
         result = defineClass(className, classData, 0, classData.length, null);
+        logger.info("% Class " + className + " cached");
+        classCache.put(className, result);
         return result;
     }
 
