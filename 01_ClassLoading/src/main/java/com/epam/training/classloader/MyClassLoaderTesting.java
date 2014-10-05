@@ -128,15 +128,5 @@ public class MyClassLoaderTesting {
                     break run;
             }
         }
-//        loaderTest.executeFeature("Feature1");
-//        loaderTest.executeFeature("Feature2");
-//        loaderTest.reloadFeature("Feature1");
-//        loaderTest.executeFeature("Feature1");
-
-//
-//        ClassLoader loader = new MyClassLoader();
-//        Class clazz = Class.forName("Dog", true, loader);
-//        Object object = clazz.newInstance();
-//        clazz.getMethod("bark").invoke(object);
     }
 }
