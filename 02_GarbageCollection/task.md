@@ -1,5 +1,5 @@
 ###   Java.MP.C4.M3.GC Default Task 1
-Write a Command Line that starts a JavaApp using the Serial Collector with the following parameters
+Write a Command Line that starts a JavaApp using the __Serial Collector__ with the following parameters
 
 * the 6m initial heap size for when the JVM starts
 * the 18m maximum heap size
@@ -9,7 +9,7 @@ Write a Command Line that starts a JavaApp using the Serial Collector with the f
 
 
 ###   Java.MP.C4.M3.GC Default Task 2
-Write a Command Line that starts a JavaApp using the Parallel Collector with the following parameters
+Write a Command Line that starts a JavaApp using the __Parallel Collector__ with the following parameters
 
 * the 3m initial heap size for when the JVM starts
 * the 12m maximum heap size
@@ -19,7 +19,7 @@ Write a Command Line that starts a JavaApp using the Parallel Collector with the
 
 
 ###   Java.MP.C4.M3.GC Default Task 3
-Write a Command Line that starts a JavaApp using the Parallel Old Collector with the following parameters
+Write a Command Line that starts a JavaApp using the __Parallel Old Collector__ with the following parameters
 
 * the 9m initial heap size for when the JVM starts
 * the 18m maximum heap size
@@ -29,7 +29,7 @@ Write a Command Line that starts a JavaApp using the Parallel Old Collector with
 
 
 ###   Java.MP.C4.M3.GC Default Task 4
-Write a Command Line that starts a JavaApp using the Concurrent Mark Sweep (CMS) Collector with the following parameters
+Write a Command Line that starts a JavaApp using the __Concurrent Mark Sweep (CMS) Collector__ with the following parameters
 
 * the 6m initial heap size for when the JVM starts
 * the 18m maximum heap size
@@ -39,7 +39,7 @@ Write a Command Line that starts a JavaApp using the Concurrent Mark Sweep (CMS)
 
 
 ###   Java.MP.C4.M3.GC Default Task 5 
-Write a Command Line that starts a JavaApp using the Concurrent Mark Sweep (CMS) Collector with 2 Parallel CMS Threads with the following parameters
+Write a Command Line that starts a JavaApp using the __Concurrent Mark Sweep (CMS) Collector with 2 Parallel CMS Threads__ with the following parameters
 
 * the 2m initial heap size for when the JVM starts
 * the 18m maximum heap size
@@ -49,7 +49,7 @@ Write a Command Line that starts a JavaApp using the Concurrent Mark Sweep (CMS)
 
 
 ###   Java.MP.C4.M3.GC Default Task 6
-Write a Command Line that starts a JavaApp using the Parallel Collector with 2 Parallel CMS Threads with the following parameters
+Write a Command Line that starts a JavaApp using the __Parallel Collector with 2 Parallel CMS Threads__ with the following parameters
 
 * the 4m initial heap size for when the JVM starts
 * the 16m maximum heap size
@@ -59,7 +59,7 @@ Write a Command Line that starts a JavaApp using the Parallel Collector with 2 P
 
 
 ###   Java.MP.C4.M3.GC Default Task 7
-Write a Command Line that starts a JavaApp using theG1 Garbage Collector with the following parameters
+Write a Command Line that starts a JavaApp using the __G1 Garbage Collector__ with the following parameters
 
 * the 4m initial heap size for when the JVM starts
 * the 16m maximum heap size
