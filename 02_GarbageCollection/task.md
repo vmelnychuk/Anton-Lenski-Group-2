@@ -64,7 +64,9 @@ Write a Command Line that starts a JavaApp using the __Parallel Collector with 2
 * the 32 maximum size of the Permanent Generation
 
 `$ java -Xms6m -Xmx18m -Xmn2m -XX:PermSize=20m -XX:MaxPermSize=30m -XX:+UseParallelGC -XX:ParallelGCThreads=2 -jar JavaApp.jar`
+
 this works, but has no effect
+
 `$ java -Xms6m -Xmx18m -Xmn2m -XX:PermSize=20m -XX:MaxPermSize=30m -XX:+UseParallelGC -XX:ParallelCMSThreads=2 -jar JavaApp.jar`
 
 ###   Java.MP.C4.M3.GC Default Task 7
