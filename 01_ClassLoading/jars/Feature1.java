@@ -1,5 +1,3 @@
-package com.epam.training.feature;
-
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -9,7 +7,7 @@ import java.util.Date;
 public class Feature1 implements Feature {
 static {
     // log time for class loading
-    System.out.println(new Timestamp(new Date().getTime()));
+    System.out.println("load Feature1 " + new Timestamp(new Date().getTime()));
 }
     @Override
     public void execute() {
