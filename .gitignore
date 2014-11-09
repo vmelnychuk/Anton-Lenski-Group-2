@@ -1,6 +1,16 @@
+# idea files
 *.iml
 .idea
+
+# maven files
 target
+
+# logs
 *.log
 *.log.1
+
+# eclipse files
+.settings
+.classpath
+.project
 
