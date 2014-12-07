@@ -15,9 +15,13 @@ public class ReservationServiceBean implements ReservationService {
 
     @Inject
     private ReservationDao reservationDao;
-    
+    @Inject
+    private AttendeeDao attendeeDao;
+    @Inject
+    private RoomTypeDao roomTypeDao;
     @Override
     public void add(Reservation reservation) {
+        attendeeDao.insert(reservation.getAttendee());
         reservationDao.insert(reservation);
     }
 

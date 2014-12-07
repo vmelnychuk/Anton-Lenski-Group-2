@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,11 +57,58 @@ public class ReservationController extends HttpServlet {
             case "add":
                 add(request, response);
                 break;
+            case "edit":
+                edit(request, response);
+                break;
+            case "save":
+                save(request, response);
+                break;
             default:
                 list(request, response);
                 break;
             }
         }
+    }
+
+    private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long id = Long.parseLong(request.getParameter("id"));
+        long attendeeId = Long.parseLong(request.getParameter("attendeeId"));
+        long roomTypeId = Long.parseLong(request.getParameter("roomTypeId"));
+        String checkIn = request.getParameter("checkIn");
+        String checkOut = request.getParameter("checkOut");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        
+        Attendee attendee = new Attendee(firstName, lastName, email);
+        attendee.setAttendeeId(attendeeId);
+       
+        RoomType roomType = new RoomType();
+        roomType.setRoomTypeId(roomTypeId);
+        roomType = roomTypeService.get(roomType);
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date checkinDate = dateFormat.parse(checkIn);
+            Date checkoutDate = dateFormat.parse(checkOut);
+            Reservation reservation = new Reservation(attendee, roomType, checkinDate, checkoutDate, ReservationStatus.Active);
+            reservation.setReservationId(id);
+            reservationService.update(reservation);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        list(request, response);
+
+    }
+
+    private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long reservationId = Long.parseLong(request.getParameter("id"));
+        Reservation reservation = new Reservation();
+        reservation.setReservationId(reservationId);
+        reservation = reservationService.get(reservation);
+        request.setAttribute("item", reservation);
+        request.getRequestDispatcher("editreservation.jsp").forward(request, response);
+        
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
