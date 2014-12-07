@@ -20,7 +20,6 @@ public class RoomTypeDaoJpa implements RoomTypeDao {
     @Override
     public void update(RoomType roomType) {
         entityManager.merge(roomType);
-        //RoomType room = find(roomType);
     }
 
     @Override

@@ -1,11 +1,22 @@
 package org.training.reserveapp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Attendee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long attendeeId;
     private String firstName;
     private String lastName;
     private String email;
     
+    public Attendee() {
+        
+    }
     public Attendee(long attendeeId, String firstName, String lastName, String email) {
         this.attendeeId = attendeeId;
         this.firstName = firstName;

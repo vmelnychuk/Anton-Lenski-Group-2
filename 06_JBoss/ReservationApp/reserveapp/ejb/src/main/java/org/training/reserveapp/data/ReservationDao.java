@@ -10,4 +10,5 @@ public interface ReservationDao {
     public void insert(Reservation reservation);
     public void update(Reservation reservation);
     public void delete(Reservation reservation);
+    public Reservation findReservation(Reservation reservation);
 }

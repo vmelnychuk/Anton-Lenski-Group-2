@@ -8,6 +8,7 @@
 </head>
 <body>
   <h1>Room types</h1>
+  <a href="index.jsp">to main page</a>
   <h2>List of available room types</h2>
   <table>
     <tr>

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +21,7 @@ public class RoomTypeController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @EJB
-    RoomTypeService roomTypeService;
+    private RoomTypeService roomTypeService;
     public RoomTypeController() {
     }
 
@@ -86,9 +86,7 @@ public class RoomTypeController extends HttpServlet {
         room.setRoomTypeId(roomTypeId);
         room = roomTypeService.get(room);
         request.setAttribute("item", room);
-        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("editroom.jsp");
         request.getRequestDispatcher("editroom.jsp").forward(request, response);
-        //dispatcher.forward(request, response);
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,7 +103,5 @@ public class RoomTypeController extends HttpServlet {
         List<RoomType> list = roomTypeService.findAllRoomType();
         request.setAttribute("list", list);
         request.getRequestDispatcher("roomtype.jsp").forward(request, response);
-//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/roomtype.jsp");
-//        dispatcher.forward(request, response);
     }
 }

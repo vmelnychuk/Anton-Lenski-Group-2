@@ -8,6 +8,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:/H2DBXADataSource</jta-data-source>
         <class>org.training.reserveapp.model.RoomType</class>
+        <class>org.training.reserveapp.model.Reservation</class>
+        <class>org.training.reserveapp.model.Attendee</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
