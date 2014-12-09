@@ -3,14 +3,12 @@ package org.training.reserveapp.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 
 import org.training.reserveapp.data.RoomTypeDao;
 import org.training.reserveapp.model.RoomType;
 
-//TODO: add transactions
+
 //@TransactionManagement(TransactionManagementType.CONTAINER)
 @Stateless
 public class RoomTypeServiceBean implements RoomTypeService {

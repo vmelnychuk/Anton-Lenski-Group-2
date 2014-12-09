@@ -39,6 +39,12 @@
                 <input type="submit" value="edit">
             </form>
           </td>
+          <td>
+            <form action="reservation?action=remove" method="POST">
+                <input type="hidden" name="id" value="${item.getReservationId()}">
+                <input type="submit" value="remove">
+            </form>
+          </td>
         </tr>
       </c:forEach>
   </table>

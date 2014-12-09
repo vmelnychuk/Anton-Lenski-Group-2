@@ -12,7 +12,7 @@
     <table>
       <tr>
         <td>first name</td>
-        <td><input type="text" name="fistName"
+        <td><input type="text" name="firstName"
           value="${item.getAttendee().getFirstName()}"></td>
       </tr>
       <tr>

@@ -63,11 +63,22 @@ public class ReservationController extends HttpServlet {
             case "save":
                 save(request, response);
                 break;
+            case "remove":
+                remove(request, response);
+                break;
             default:
                 list(request, response);
                 break;
             }
         }
+    }
+
+    private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long reservationId = Long.parseLong(request.getParameter("id"));
+        Reservation reservation = new Reservation();
+        reservation.setReservationId(reservationId);
+        reservationService.delete(reservation);
+        list(request, response);
     }
 
     private void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -96,6 +107,9 @@ public class ReservationController extends HttpServlet {
             reservationService.update(reservation);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            list(request, response);
         }
         list(request, response);
 
@@ -108,7 +122,6 @@ public class ReservationController extends HttpServlet {
         reservation = reservationService.get(reservation);
         request.setAttribute("item", reservation);
         request.getRequestDispatcher("editreservation.jsp").forward(request, response);
-        
     }
 
     private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -134,6 +147,9 @@ public class ReservationController extends HttpServlet {
             e.printStackTrace();
         } catch (NumberFormatException e) {
             e.printStackTrace();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            list(request, response);
         }
         list(request, response);
     }

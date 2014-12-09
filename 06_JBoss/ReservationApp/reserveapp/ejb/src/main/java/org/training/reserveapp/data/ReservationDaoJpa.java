@@ -35,7 +35,8 @@ public class ReservationDaoJpa implements ReservationDao {
 
     @Override
     public void delete(Reservation reservation) {
-        entityManager.remove(reservation);
+        Reservation toDeleteReservation = findReservation(reservation);
+        entityManager.remove(toDeleteReservation);
     }
 
 }
