@@ -40,6 +40,7 @@ public class MessageServiceMock implements MessageService {
         logger.info("sending message" + message);
         try {
             Thread.sleep(1000L);
+            message.setSent(true);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
