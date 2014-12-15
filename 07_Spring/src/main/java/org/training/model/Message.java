@@ -48,9 +48,8 @@ public class Message {
     }
     @Override
     public String toString() {
-        return Message.class.getSimpleName() + "[toMailBox=" + toMailBox + ", fromMailBox="
+        return "Message [toMailBox=" + toMailBox + ", fromMailBox="
                 + fromMailBox + ", subject=" + subject + ", messageText="
-                + messageText + "]";
+                + messageText + ", sent=" + sent + "]";
     }
-    
 }
