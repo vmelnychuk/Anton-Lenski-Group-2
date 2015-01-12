@@ -1,19 +1,20 @@
-package org.training.reserapp.controllers;
+package org.training.reserveapp.controllers;
 
-import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.training.reserveapp.model.Attendee;
 import org.training.reserveapp.model.Reservation;
 import org.training.reserveapp.model.ReservationStatus;
@@ -21,58 +22,19 @@ import org.training.reserveapp.model.RoomType;
 import org.training.reserveapp.service.ReservationService;
 import org.training.reserveapp.service.RoomTypeService;
 
-@WebServlet(urlPatterns={"/reservation"})
-public class ReservationController extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping("/reservation")
+public class ReservationController{
 
-    @EJB
     private ReservationService reservationService;
-    
-    @EJB
     private RoomTypeService roomTypeService;
     
-    public ReservationController() {
-        super();
+    @Autowired
+    public ReservationController(RoomTypeService roomTypeService, ReservationService reservationService) {
+        this.roomTypeService = roomTypeService;
+        this.reservationService = reservationService;
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action != null) {
-            switch (action) {
-            case "list":
-                list(request, response);
-                break;
-            default:
-                list(request, response);
-                break;
-            }
-        }
-    }
-
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action != null) {
-            switch (action) {
-            case "add":
-                add(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
-            case "save":
-                save(request, response);
-                break;
-            case "remove":
-                remove(request, response);
-                break;
-            default:
-                list(request, response);
-                break;
-            }
-        }
-    }
-
+/*
     private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long reservationId = Long.parseLong(request.getParameter("id"));
         Reservation reservation = new Reservation();
@@ -153,12 +115,13 @@ public class ReservationController extends HttpServlet {
         }
         list(request, response);
     }
-    
-    private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    */
+    @RequestMapping(method = RequestMethod.GET)
+    private String list(Model model) {
         List<RoomType> roomTypes = roomTypeService.findAllRoomType();
-        request.setAttribute("roomTypes", roomTypes);
         List<Reservation> reservations = reservationService.findAllReservation();
-        request.setAttribute("reservations", reservations);
-        request.getRequestDispatcher("reservation.jsp").forward(request, response);
+        model.addAttribute("roomTypes", roomTypes);
+        model.addAttribute("reservations", reservations);
+        return "reservation";
     }
 }

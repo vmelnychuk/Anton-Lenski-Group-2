@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="reservationService"
+        class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+        <property name="jndiName"
+            value="java:global/reserveapp-ear/reserveapp-ejb/ReservationServiceBean!org.training.reserveapp.service.ReservationService" />
+        <property name="businessInterface"
+            value="org.training.reserveapp.service.ReservationService" />
+    </bean>
+    <bean id="roomTypeService"
+        class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+        <property name="jndiName"
+            value="java:global/reserveapp-ear/reserveapp-ejb/RoomTypeServiceBean!org.training.reserveapp.service.RoomTypeService" />
+        <property name="businessInterface"
+            value="org.training.reserveapp.service.RoomTypeService" />
+    </bean>
+
+</beans>
