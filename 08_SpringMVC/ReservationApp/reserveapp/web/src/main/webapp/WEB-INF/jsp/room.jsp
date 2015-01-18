@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
 <title>Room type</title>
 </head>
 <body>
   <h1>Room types</h1>
-  <a href="index.jsp">to main page</a>
+  <a href="welcome">to main page</a>
   <h2>List of available room types</h2>
   <table>
     <tr>
@@ -17,7 +16,7 @@
       <th>price</th>
       <th>quantity</th>
     </tr>
-    <c:forEach var="item" items="${list}" varStatus="counter">
+    <c:forEach var="item" items="${rooms}" varStatus="counter">
       <tr>
         <td>${item.getRoomTypeId()}</td>
         <td>${item.getName()}</td>
@@ -41,15 +40,15 @@
     </c:forEach>
   </table>
   <h2>Add new room type</h2>
-  <form action="room_type?action=add" method="POST">
+  <form method="post">
     <table>
       <tr>
         <td>Name</td>
-        <td><input type="text" name="roomName"></td>
+        <td><input type="text" name="roomName" value="${roomName}"></td>
       </tr>
       <tr>
         <td>Price</td>
-        <td><input type="text" name="price"></td>
+        <td><input type="text" name="price" value="${price}"></td>
       </tr>
       <tr>
         <td></td>
