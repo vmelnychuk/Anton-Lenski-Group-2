@@ -121,8 +121,6 @@ public class RoomTypeController {
             @RequestParam("price") Long price, Model model) {
         RoomType room = new RoomType(roomName, price);
         roomTypeService.add(room);
-        List<RoomType> list = roomTypeService.findAllRoomType();
-        model.addAttribute("rooms", list);
-        return "room";
+        return "redirect:room";
     }
 }

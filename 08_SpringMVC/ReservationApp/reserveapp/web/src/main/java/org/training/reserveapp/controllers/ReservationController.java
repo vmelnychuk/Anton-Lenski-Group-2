@@ -204,11 +204,6 @@ public class ReservationController {
         
         Reservation reservation = new Reservation(attendee, room, checkIn, checkOut, ReservationStatus.Active);
         reservationService.add(reservation);
-        
-        List<RoomType> roomTypes = roomTypeService.findAllRoomType();
-        List<Reservation> reservations = reservationService.findAllReservation();
-        model.addAttribute("roomTypes", roomTypes);
-        model.addAttribute("reservations", reservations);
-        return "reservation";
+        return "redirect:reservation";
     }
 }
