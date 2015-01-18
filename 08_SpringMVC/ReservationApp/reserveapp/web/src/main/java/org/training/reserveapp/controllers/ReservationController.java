@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -171,6 +172,52 @@ public class ReservationController {
             RoomTypeService roomTypeService) {
         this.reservationService = reservationService;
         this.roomTypeService = roomTypeService;
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String remove(@PathVariable("id") Long id) {
+        Reservation reservation = new Reservation();
+        reservation.setReservationId(id);
+        reservationService.delete(reservation);
+        return "redirect:/reservation";
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public String description(@PathVariable("id") Long id, Model model) {
+        Reservation reservation = new Reservation();
+        reservation.setReservationId(id);
+        reservation = reservationService.get(reservation);
+        model.addAttribute("item", reservation);
+        return "editreservation";
+    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public String update(@PathVariable("id") Long id,
+            @RequestParam("attendeeId") Long attendeeId,
+            @RequestParam("roomTypeId") Long roomTypeId,
+            @RequestParam("checkIn") String checkIn,
+            @RequestParam("checkOut") String checkOut,
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("email") String email) {
+      Attendee attendee = new Attendee(firstName, lastName, email);
+      attendee.setAttendeeId(attendeeId);
+      RoomType roomType = new RoomType();
+      roomType.setRoomTypeId(roomTypeId);
+      roomType = roomTypeService.get(roomType);
+      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      Date checkinDate = null;
+      Date checkoutDate = null;
+      try {
+          checkinDate = dateFormat.parse(checkIn);
+          checkoutDate = dateFormat.parse(checkOut);
+          Reservation reservation = new Reservation(attendee, roomType, checkinDate, checkoutDate, ReservationStatus.Active);
+          reservation.setReservationId(id);
+          reservationService.update(reservation);
+      } catch (ParseException e) {
+          e.printStackTrace();
+      } catch (RuntimeException e) {
+          e.printStackTrace();
+          return "redirect:/reservation";
+      }
+      return "redirect:/reservation";
     }
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {

@@ -34,15 +34,14 @@
           <td>${item.getCost()}</td>
           <td>${item.getStatus()}</td>
           <td>
-            <form action="reservation?action=edit" method="POST">
-                <input type="hidden" name="id" value="${item.getReservationId()}">
+            <form action="reservation/${item.getReservationId()}" method="POST">
                 <input type="submit" value="edit">
             </form>
           </td>
           <td>
-            <form action="reservation?action=remove" method="POST">
-                <input type="hidden" name="id" value="${item.getReservationId()}">
+            <form action="reservation/${item.getReservationId()}" method="POST">
                 <input type="submit" value="remove">
+                <input type="hidden" name="_method" value="DELETE" />
             </form>
           </td>
         </tr>

@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
 <title>Edit Reservation</title>
 </head>
 <body>
   <h1>Edit Reservation</h1>
-  <form action="reservation?action=save" method="POST">
+  <form action="../reservation/${item.getReservationId()}" method="post">
     <table>
       <tr>
         <td>first name</td>
@@ -31,20 +31,24 @@
       </tr>
       <tr>
         <td>check in</td>
-        <td><input type="text" name="checkIn"
-          value="${item.getCheckInDate()}"></td>
+        <td>
+        <fmt:formatDate value="${item.getCheckInDate()}" pattern="yyyy-MM-dd" var="chIn" />
+        <input type="text" name="checkIn" value="${chIn}">
+        </td>
       </tr>
       <tr>
         <td>check out</td>
-        <td><input type="text" name="checkOut"
-          value="${item.getCheckOutDate()}"></td>
+        <td><fmt:formatDate value="${item.getCheckOutDate()}" pattern="yyyy-MM-dd" var="chOut" />
+        <input type="text" name="checkOut" value="${chOut}">
+        </td>
       </tr>
       <tr>
         <td></td>
         <td>
-          <input type="hidden" name="id" value="${item.getReservationId()}">
+          <input type="hidden" name="_method" value="PUT" />
           <input type="hidden" name="attendeeId" value="${item.getAttendee().getAttendeeId()}">
-          <input type="submit" value="save"></td>
+          <input type="submit" value="save">
+          </td>
       </tr>
     </table>
   </form>

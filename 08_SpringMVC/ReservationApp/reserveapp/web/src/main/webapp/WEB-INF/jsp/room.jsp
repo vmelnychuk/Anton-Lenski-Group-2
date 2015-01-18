@@ -23,17 +23,14 @@
         <td>${item.getPrice()}</td>
         <td>${item.getQuantity()}</td>
         <td>
-          <form action="room_type?action=edit" method="POST">
-            <input type="hidden" name="id"
-              value="${item.getRoomTypeId()}"> <input
-              type="submit" value="edit">
+          <form action="room/${item.getRoomTypeId()}" method="post">
+            <input type="submit" value="edit">
           </form>
         </td>
         <td>
-          <form action="room_type?action=remove" method="POST">
-            <input type="hidden" name="id"
-              value="${item.getRoomTypeId()}"> <input
-              type="submit" value="remove">
+          <form action="room/${item.getRoomTypeId()}" method="post">
+            <input type="submit" value="remove">
+            <input type="hidden" name="_method" value="DELETE" />
           </form>
         </td>
       </tr>
