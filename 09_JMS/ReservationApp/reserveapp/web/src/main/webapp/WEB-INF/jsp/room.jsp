@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -37,21 +38,21 @@
     </c:forEach>
   </table>
   <h2>Add new room type</h2>
-  <form method="post">
-    <table>
-      <tr>
-        <td>Name</td>
-        <td><input type="text" name="roomName" value="${roomName}"></td>
-      </tr>
-      <tr>
-        <td>Price</td>
-        <td><input type="text" name="price" value="${price}"></td>
-      </tr>
-      <tr>
+  <form:form method="POST" modelAttribute="room">
+  <table>
+    <tr>
+        <td><form:label path="name">Name</form:label></td>
+        <td><form:input path="name"/></td>
+    </tr>
+    <tr>
+        <td><form:label path="price">Price</form:label></td>
+        <td><form:input path="price" /></td>
+    </tr>
+    <tr>
         <td></td>
         <td><input type="submit" value="Add"></td>
-      </tr>
-    </table>
-  </form>
+    </tr>
+  </table>
+  </form:form>
 </body>
 </html>

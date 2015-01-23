@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +31,7 @@ public class RoomTypeController {
         return "editroom";
     }
     @RequestMapping(method = RequestMethod.POST)
-    public String add(@RequestParam("roomName") String roomName, 
-            @RequestParam("price") Long price, Model model) {
-        RoomType room = new RoomType(roomName, price);
+    public String add(@ModelAttribute RoomType room, Model model) {
         roomTypeService.add(room);
         return "redirect:room";
     }
@@ -56,6 +55,7 @@ public class RoomTypeController {
     public String list(Model model) {
         List<RoomType> list = roomTypeService.findAllRoomType();
         model.addAttribute("rooms", list);
+        model.addAttribute("room", new RoomType());
         return "room";
     }
 }
