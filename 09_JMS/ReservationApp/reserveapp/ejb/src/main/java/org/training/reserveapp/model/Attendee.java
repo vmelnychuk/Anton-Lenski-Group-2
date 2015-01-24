@@ -1,12 +1,15 @@
 package org.training.reserveapp.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Attendee {
+public class Attendee implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long attendeeId;
@@ -51,5 +54,11 @@ public class Attendee {
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    @Override
+    public String toString() {
+        return "Attendee [attendeeId=" + attendeeId + ", firstName="
+                + firstName + ", lastName=" + lastName + ", email=" + email
+                + "]";
     }
 }

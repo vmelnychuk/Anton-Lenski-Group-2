@@ -21,13 +21,13 @@ public class ReservationServiceBean implements ReservationService {
     @Override
     public void add(Reservation reservation) {
         reservationDao.insert(reservation);
-        emailService.sendMail(reservation.getAttendee());
+        emailService.composeMail(reservation.getAttendee());
     }
 
     @Override
     public void update(Reservation reservation) {
         reservationDao.update(reservation);
-        emailService.sendMail(reservation.getAttendee());
+        emailService.composeMail(reservation.getAttendee());
     }
 
     @Override
