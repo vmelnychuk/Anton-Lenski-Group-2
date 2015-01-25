@@ -15,8 +15,8 @@ import org.training.reserveapp.model.Attendee;
 import org.training.reserveapp.service.exception.EmailServiceException;
 
 @Stateless
-public class EmailServiceBean implements EmailService{
-    static Logger logger = Logger.getLogger(EmailServiceBean.class);
+public class EmailServiceBean implements EmailService {
+    private static Logger logger = Logger.getLogger(EmailServiceBean.class);
     @Resource(mappedName = "java:/ConnectionFactory")
     private ConnectionFactory cf;
     @Resource(mappedName = "java:jboss/exported/jms/queue/test")
@@ -28,27 +28,34 @@ public class EmailServiceBean implements EmailService{
             logger.error("try sent mail to " + attendee.getEmail());
             throw new EmailServiceException("User uses mail.ru mail");
         } else {
-            logger.info("mail is sent to " + attendee.getEmail() + " with text " + message);
+            logger.info("mail is sent to " + attendee.getEmail() 
+                    + " with text " + message);
         }
     }
     @Override
     public void composeMail(Attendee attendee) {
-        try {
-            connection = cf.createConnection();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer publisher = session.createProducer(queue);
-            connection.start();
-            ObjectMessage message = session.createObjectMessage(attendee);
-            publisher.send(message);
-        } catch(JMSException e) {
-                logger.error("Error ! "+ e);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                    connection = null;
-                } catch (JMSException e) { 
-                    logger.error(e); 
+        if (attendee.getEmail().endsWith("@mail.ru")) {
+            logger.error("try sent mail to " + attendee.getEmail());
+            throw new EmailServiceException("User uses mail.ru mail");
+        } else {
+            try {
+                connection = cf.createConnection();
+                Session session = connection.
+                        createSession(false, Session.AUTO_ACKNOWLEDGE);
+                MessageProducer publisher = session.createProducer(queue);
+                connection.start();
+                ObjectMessage message = session.createObjectMessage(attendee);
+                publisher.send(message);
+            } catch (JMSException e) {
+                logger.error("Error ! " + e);
+            } finally {
+                if (connection != null) {
+                    try {
+                        connection.close();
+                        connection = null;
+                    } catch (JMSException e) { 
+                        logger.error(e); 
+                    }
                 }
             }
         }

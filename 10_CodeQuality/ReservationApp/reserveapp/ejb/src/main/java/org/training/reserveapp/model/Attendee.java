@@ -20,7 +20,8 @@ public class Attendee implements Serializable {
     public Attendee() {
         
     }
-    public Attendee(long attendeeId, String firstName, String lastName, String email) {
+    public Attendee(long attendeeId, String firstName, 
+            String lastName, String email) {
         this.attendeeId = attendeeId;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -15,9 +15,9 @@ public class ReservationServiceBean implements ReservationService {
 
     @Inject
     private ReservationDao reservationDao;
-    
+
     @EJB
-    EmailService emailService;
+    private EmailService emailService;
     @Override
     public void add(Reservation reservation) {
         reservationDao.insert(reservation);

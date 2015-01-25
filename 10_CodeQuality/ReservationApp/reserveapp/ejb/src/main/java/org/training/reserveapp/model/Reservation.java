@@ -4,8 +4,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +21,8 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long reservationId;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.PERSIST, 
+            CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "attendeeId")
     private Attendee attendee;
     @ManyToOne
@@ -89,7 +90,8 @@ public class Reservation {
         this.status = status;
     }
     public void calculateCost() {
-        Days days = Days.daysBetween(new DateTime(checkInDate), new DateTime(checkOutDate));
+        Days days = Days.daysBetween(new DateTime(checkInDate), 
+                new DateTime(checkOutDate));
         setCost(days.getDays() * roomType.getPrice());
     }
 }

@@ -6,9 +6,9 @@ import org.training.reserveapp.model.RoomType;
 
 
 public interface RoomTypeDao {
-    public List<RoomType>findAllRoomType();
-    public RoomType find(RoomType roomType);
-    public void insert(RoomType roomType);
-    public void update(RoomType roomType);
-    public void delete(RoomType roomType);
+    List<RoomType>findAllRoomType();
+    RoomType find(RoomType roomType);
+    void insert(RoomType roomType);
+    void update(RoomType roomType);
+    void delete(RoomType roomType);
 }

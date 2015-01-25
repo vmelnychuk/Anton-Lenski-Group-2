@@ -6,8 +6,8 @@ import org.training.reserveapp.model.Attendee;
 
 
 public interface AttendeeDao {
-    public List<Attendee>findAllAttendees();
-    public void insert(Attendee attendee);
-    public void update(Attendee attendee);
-    public void delete(Attendee attendee);
+    List<Attendee>findAllAttendees();
+    void insert(Attendee attendee);
+    void update(Attendee attendee);
+    void delete(Attendee attendee);
 }
